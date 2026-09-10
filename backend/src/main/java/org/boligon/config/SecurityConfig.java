@@ -28,6 +28,11 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(origensPermitidas()))
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/swagger-ui/**",
+                                "/swagger-ui.html",
+                                "/v3/api-docs/**"
+                        ).permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/login", "/api/auth/registrar", "/api/auth/logout").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/enums/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/solicitacoes/protocolo/**").permitAll()

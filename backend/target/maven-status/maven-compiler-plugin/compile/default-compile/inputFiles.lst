@@ -24,6 +24,7 @@
 /Users/enzoayresbettini/Desktop/Repos/cesumar/aep2026-6bim/backend/src/main/java/org/boligon/historico/repository/HistoricoStatusRepository.java
 /Users/enzoayresbettini/Desktop/Repos/cesumar/aep2026-6bim/backend/src/main/java/org/boligon/solicitacao/repository/AuditoriaRepository.java
 /Users/enzoayresbettini/Desktop/Repos/cesumar/aep2026-6bim/backend/src/main/java/org/boligon/exception/GlobalExceptionHandler.java
+/Users/enzoayresbettini/Desktop/Repos/cesumar/aep2026-6bim/backend/src/main/java/org/boligon/config/OpenApiConfig.java
 /Users/enzoayresbettini/Desktop/Repos/cesumar/aep2026-6bim/backend/src/main/java/org/boligon/auth/dto/LoginRequest.java
 /Users/enzoayresbettini/Desktop/Repos/cesumar/aep2026-6bim/backend/src/main/java/org/boligon/auth/dto/UsuarioResponse.java
 /Users/enzoayresbettini/Desktop/Repos/cesumar/aep2026-6bim/backend/src/main/java/org/boligon/configbanco/InicioBanco.java

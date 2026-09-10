@@ -23,11 +23,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/solicitacoes")
+@Tag(name = "Solicitações", description = "Criação, consulta e gestão de solicitações cidadãs")
 public class SolicitacaoController {
 
     private final SolicitacaoService solicitacaoService;

@@ -6,6 +6,7 @@ import org.boligon.enums.StatusSolicitacao;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +15,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/enums")
+@Tag(name = "Enums", description = "Listagem de categorias, prioridades e status")
 public class EnumController {
 
     @GetMapping("/categorias")

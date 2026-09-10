@@ -24,6 +24,7 @@ org/boligon/auth/dto/RegistroRequest.class
 org/boligon/exception/EntidadeNaoEncontradaException.class
 org/boligon/enums/Prioridade.class
 org/boligon/config/SecurityConfig.class
+org/boligon/config/OpenApiConfig.class
 org/boligon/historico/repository/HistoricoStatusRepository.class
 org/boligon/solicitacao/domain/Auditoria.class
 org/boligon/auth/repository/UsuarioRepository.class
