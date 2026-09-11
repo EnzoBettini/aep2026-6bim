@@ -1,6 +1,6 @@
 package org.boligon.solicitacao;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long> {
+public interface SolicitacaoRepository extends MongoRepository<Solicitacao, String> {
 }

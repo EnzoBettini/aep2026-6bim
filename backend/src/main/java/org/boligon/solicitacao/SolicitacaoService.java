@@ -30,12 +30,12 @@ public class SolicitacaoService {
         return solicitacaoRepository.findAll();
     }
 
-    public Solicitacao buscarPorId(Long id) {
+    public Solicitacao buscarPorId(String id) {
         return solicitacaoRepository.findById(id)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException("Solicitação não encontrada."));
     }
 
-    public Solicitacao atualizar(Long id, SolicitacaoRequest request) {
+    public Solicitacao atualizar(String id, SolicitacaoRequest request) {
         validarCampos(request);
         if (request.getStatus() == null) {
             throw new ValidacaoException("O status é obrigatório.");
@@ -52,7 +52,7 @@ public class SolicitacaoService {
         return solicitacaoRepository.save(solicitacao);
     }
 
-    public void excluir(Long id) {
+    public void excluir(String id) {
         Solicitacao solicitacao = buscarPorId(id);
         solicitacaoRepository.delete(solicitacao);
     }

@@ -37,18 +37,18 @@ public class SolicitacaoController {
     }
 
     @GetMapping("/{id}")
-    public Solicitacao buscar(@PathVariable Long id) {
+    public Solicitacao buscar(@PathVariable String id) {
         return solicitacaoService.buscarPorId(id);
     }
 
     @PutMapping("/{id}")
-    public Solicitacao atualizar(@PathVariable Long id, @RequestBody SolicitacaoRequest request) {
+    public Solicitacao atualizar(@PathVariable String id, @RequestBody SolicitacaoRequest request) {
         return solicitacaoService.atualizar(id, request);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void excluir(@PathVariable Long id) {
+    public void excluir(@PathVariable String id) {
         solicitacaoService.excluir(id);
     }
 }
