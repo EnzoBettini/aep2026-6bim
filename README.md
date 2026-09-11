@@ -7,8 +7,8 @@ Cidadãos registram problemas urbanos (iluminação, buracos, lixo e poda), alin
 ## Escopo desta versão
 
 - Backend Java (Spring Boot)
+- CLI no terminal com CRUD
 - Uma entidade simples: `Solicitacao`
-- CRUD básico
 - Sem frontend
 - Sem autenticação
 
@@ -20,6 +20,17 @@ Requisito: Java 17.
 cd backend
 mvn spring-boot:run
 ```
+
+O menu do CLI aparece no terminal:
+
+1. Cadastrar solicitação
+2. Listar solicitações
+3. Buscar por ID
+4. Atualizar solicitação
+5. Excluir solicitação
+0. Sair
+
+A API continua disponível em paralelo:
 
 - API: http://localhost:8080/api/solicitacoes
 - Swagger: http://localhost:8080/swagger-ui.html
