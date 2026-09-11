@@ -7,6 +7,7 @@ import org.boligon.solicitacao.SolicitacaoService;
 import org.boligon.solicitacao.StatusSolicitacao;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Scanner;
@@ -17,6 +18,7 @@ public class MenuCli implements CommandLineRunner {
     private final SolicitacaoService solicitacaoService;
     private final Scanner scanner;
 
+    @Autowired
     public MenuCli(SolicitacaoService solicitacaoService) {
         this(solicitacaoService, new Scanner(System.in));
     }
