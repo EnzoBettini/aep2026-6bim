@@ -61,3 +61,22 @@ A API continua disponível em paralelo:
 
 Categorias: `ILUMINACAO`, `BURACO`, `LIXO`, `PODA`  
 Status: `ABERTA`, `EM_ANDAMENTO`, `RESOLVIDA`
+
+## Testes e cobertura
+
+Os testes automatizados ficam em `backend/src/test/java`. A cobertura é medida com **JaCoCo**.
+
+Para rodar os testes e gerar o relatório:
+
+```bash
+cd backend
+mvn test
+```
+
+Depois, abra o relatório HTML no navegador:
+
+`backend/target/site/jacoco/index.html`
+
+Evidência da medição nesta entrega:
+
+![Relatório JaCoCo — cobertura de instruções 77%](docs/cobertura-jacoco.png)
