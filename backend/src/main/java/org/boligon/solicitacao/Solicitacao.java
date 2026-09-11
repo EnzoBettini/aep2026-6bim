@@ -1,37 +1,17 @@
 package org.boligon.solicitacao;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "solicitacoes")
+@Document(collection = "solicitacoes")
 public class Solicitacao {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false, length = 120)
+    private String id;
     private String titulo;
-
-    @Column(nullable = false, length = 500)
     private String descricao;
-
-    @Column(nullable = false, length = 80)
     private String bairro;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 30)
     private Categoria categoria;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
     private StatusSolicitacao status;
 
     public Solicitacao() {
@@ -53,8 +33,12 @@ public class Solicitacao {
         this.status = status;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitulo() {

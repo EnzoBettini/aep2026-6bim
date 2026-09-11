@@ -93,12 +93,12 @@ public class MenuCli implements CommandLineRunner {
     }
 
     private void buscar() {
-        Long id = lerId();
+        String id = lerId();
         imprimir(solicitacaoService.buscarPorId(id));
     }
 
     private void atualizar() {
-        Long id = lerId();
+        String id = lerId();
         SolicitacaoRequest request = lerDadosBasicos();
         request.setStatus(lerStatus());
         Solicitacao atualizada = solicitacaoService.atualizar(id, request);
@@ -107,7 +107,7 @@ public class MenuCli implements CommandLineRunner {
     }
 
     private void excluir() {
-        Long id = lerId();
+        String id = lerId();
         solicitacaoService.excluir(id);
         System.out.println("Solicitação " + id + " excluída.");
     }
@@ -144,14 +144,13 @@ public class MenuCli implements CommandLineRunner {
         return status[lerIndice(status.length)];
     }
 
-    private Long lerId() {
+    private String lerId() {
         System.out.print("ID: ");
         String valor = scanner.nextLine().trim();
-        try {
-            return Long.parseLong(valor);
-        } catch (NumberFormatException ex) {
-            throw new IllegalArgumentException("Informe um ID numérico.");
+        if (valor.isEmpty()) {
+            throw new IllegalArgumentException("Informe o ID.");
         }
+        return valor;
     }
 
     private int lerIndice(int quantidade) {
