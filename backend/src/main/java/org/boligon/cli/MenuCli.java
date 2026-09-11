@@ -15,10 +15,15 @@ import java.util.Scanner;
 public class MenuCli implements CommandLineRunner {
 
     private final SolicitacaoService solicitacaoService;
-    private final Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner;
 
     public MenuCli(SolicitacaoService solicitacaoService) {
+        this(solicitacaoService, new Scanner(System.in));
+    }
+
+    MenuCli(SolicitacaoService solicitacaoService, Scanner scanner) {
         this.solicitacaoService = solicitacaoService;
+        this.scanner = scanner;
     }
 
     @Override
@@ -67,7 +72,6 @@ public class MenuCli implements CommandLineRunner {
                 return true;
             case "0":
                 System.out.println("Encerrando...");
-                System.exit(0);
                 return false;
             default:
                 System.out.println("Opção inválida.");

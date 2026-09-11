@@ -57,7 +57,7 @@ public class SolicitacaoService {
         solicitacaoRepository.delete(solicitacao);
     }
 
-    private void validarCampos(SolicitacaoRequest request) {
+    public void validarCampos(SolicitacaoRequest request) {
         if (request == null) {
             throw new ValidacaoException("Os dados da solicitação são obrigatórios.");
         }
