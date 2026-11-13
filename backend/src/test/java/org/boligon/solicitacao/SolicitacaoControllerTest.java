@@ -69,4 +69,22 @@ public class SolicitacaoControllerTest {
         controller.excluir("1");
         verify(solicitacaoService).excluir("1");
     }
+
+    @Test
+    void deveMudarStatus() {
+        MudarStatusRequest request = new MudarStatusRequest();
+        request.setStatus(StatusSolicitacao.EM_ANDAMENTO);
+        Solicitacao s = new Solicitacao("cid1", "t", "d", "b", Categoria.LIXO);
+        when(solicitacaoService.mudarStatus("1", request)).thenReturn(s);
+
+        assertEquals(StatusSolicitacao.EM_ANDAMENTO, controller.mudarStatus("1", request).getStatus());
+    }
+
+    @Test
+    void deveListarHistorico() {
+        Solicitacao s = new Solicitacao("cid1", "t", "d", "b", Categoria.LIXO);
+        when(solicitacaoService.listarHistorico("1")).thenReturn(s.getHistoricoStatus());
+
+        assertEquals(1, controller.listarHistorico("1").size());
+    }
 }

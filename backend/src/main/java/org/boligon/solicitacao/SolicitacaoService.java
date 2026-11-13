@@ -66,6 +66,32 @@ public class SolicitacaoService {
         return solicitacaoRepository.findByCidadaoId(cidadaoId);
     }
 
+    public Solicitacao mudarStatus(String id, MudarStatusRequest request) {
+        if (request == null || request.getStatus() == null) {
+            throw new ValidacaoException("O status é obrigatório.");
+        }
+        Solicitacao solicitacao = buscarPorId(id);
+        StatusSolicitacao novoStatus = request.getStatus();
+
+        if (solicitacao.getStatus() == StatusSolicitacao.RESOLVIDA && novoStatus == StatusSolicitacao.ABERTA) {
+            throw new ValidacaoException("Não é permitido reabrir uma solicitação resolvida.");
+        }
+        if (solicitacao.getStatus() == novoStatus) {
+            throw new ValidacaoException("A solicitação já está com este status.");
+        }
+
+        String observacao = request.getObservacao();
+        if (observacao == null || observacao.trim().isEmpty()) {
+            observacao = "Status alterado para " + novoStatus;
+        }
+        solicitacao.mudarStatus(novoStatus, observacao.trim());
+        return solicitacaoRepository.save(solicitacao);
+    }
+
+    public List<HistoricoStatus> listarHistorico(String id) {
+        return buscarPorId(id).getHistoricoStatus();
+    }
+
     public void excluir(String id) {
         Solicitacao solicitacao = buscarPorId(id);
         solicitacaoRepository.delete(solicitacao);
