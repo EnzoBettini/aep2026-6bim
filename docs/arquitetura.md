@@ -23,7 +23,7 @@ Organização por **bounded context** + camadas:
 | `org.boligon.cidadao.service` | Regras de cidadão |
 | `org.boligon.cidadao.controller` | `/api/cidadaos` |
 | `org.boligon.solicitacao.*` | Mesmo padrão para solicitações |
-| `org.boligon.cli` | Menu terminal (CRUD legado) |
+| `org.boligon.cli` | Menu terminal (submenus Cidadãos / Solicitações, status e histórico) |
 | `org.boligon.exception` | Erros + `GlobalExceptionHandler` |
 
 Controllers expõem **DTOs**; entidades de domínio não vão direto no JSON.
