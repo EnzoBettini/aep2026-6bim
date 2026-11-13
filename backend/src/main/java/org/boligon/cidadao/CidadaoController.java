@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.boligon.solicitacao.Solicitacao;
+import org.boligon.solicitacao.SolicitacaoService;
 
 import java.util.List;
 
@@ -20,9 +22,11 @@ import java.util.List;
 public class CidadaoController {
 
     private final CidadaoService cidadaoService;
+    private final SolicitacaoService solicitacaoService;
 
-    public CidadaoController(CidadaoService cidadaoService) {
+    public CidadaoController(CidadaoService cidadaoService, SolicitacaoService solicitacaoService) {
         this.cidadaoService = cidadaoService;
+        this.solicitacaoService = solicitacaoService;
     }
 
     @PostMapping
@@ -39,6 +43,11 @@ public class CidadaoController {
     @GetMapping("/{id}")
     public Cidadao buscar(@PathVariable String id) {
         return cidadaoService.buscarPorId(id);
+    }
+
+    @GetMapping("/{id}/solicitacoes")
+    public List<Solicitacao> listarSolicitacoes(@PathVariable String id) {
+        return solicitacaoService.listarPorCidadaoId(id);
     }
 
     @PutMapping("/{id}")

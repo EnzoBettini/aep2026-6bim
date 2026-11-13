@@ -8,6 +8,7 @@ public class Solicitacao {
 
     @Id
     private String id;
+    private String cidadaoId;
     private String titulo;
     private String descricao;
     private String bairro;
@@ -17,7 +18,8 @@ public class Solicitacao {
     public Solicitacao() {
     }
 
-    public Solicitacao(String titulo, String descricao, String bairro, Categoria categoria) {
+    public Solicitacao(String cidadaoId, String titulo, String descricao, String bairro, Categoria categoria) {
+        this.cidadaoId = cidadaoId;
         this.titulo = titulo;
         this.descricao = descricao;
         this.bairro = bairro;
@@ -25,7 +27,9 @@ public class Solicitacao {
         this.status = StatusSolicitacao.ABERTA;
     }
 
-    public void atualizar(String titulo, String descricao, String bairro, Categoria categoria, StatusSolicitacao status) {
+    public void atualizar(String cidadaoId, String titulo, String descricao, String bairro, Categoria categoria,
+                          StatusSolicitacao status) {
+        this.cidadaoId = cidadaoId;
         this.titulo = titulo;
         this.descricao = descricao;
         this.bairro = bairro;
@@ -39,6 +43,10 @@ public class Solicitacao {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getCidadaoId() {
+        return cidadaoId;
     }
 
     public String getTitulo() {

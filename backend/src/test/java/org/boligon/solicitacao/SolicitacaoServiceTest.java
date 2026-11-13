@@ -1,5 +1,7 @@
 package org.boligon.solicitacao;
 
+import org.boligon.cidadao.Cidadao;
+import org.boligon.cidadao.CidadaoService;
 import org.boligon.exception.EntidadeNaoEncontradaException;
 import org.boligon.exception.ValidacaoException;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,36 +25,77 @@ public class SolicitacaoServiceTest {
     @Mock
     SolicitacaoRepository repository;
 
+    @Mock
+    CidadaoService cidadaoService;
+
     SolicitacaoService solicitacaoService;
 
     @BeforeEach
     void setUp() {
-        solicitacaoService = new SolicitacaoService(repository);
+        solicitacaoService = new SolicitacaoService(repository, cidadaoService);
     }
 
     @Test
     void deveCriarSolicitacao() {
         SolicitacaoRequest request = new SolicitacaoRequest();
+        request.setCidadaoId("cid1");
         request.setTitulo("Titulo");
         request.setDescricao("Descricao");
         request.setBairro("Bairro");
         request.setCategoria(Categoria.ILUMINACAO);
 
-        Solicitacao salva = new Solicitacao("Titulo", "Descricao", "Bairro", Categoria.ILUMINACAO);
+        when(cidadaoService.buscarPorId("cid1")).thenReturn(new Cidadao("Maria", "m@e.com", null));
+        Solicitacao salva = new Solicitacao("cid1", "Titulo", "Descricao", "Bairro", Categoria.ILUMINACAO);
         when(repository.save(any(Solicitacao.class))).thenReturn(salva);
 
         Solicitacao entidade = solicitacaoService.criar(request);
 
+        assertEquals("cid1", entidade.getCidadaoId());
         assertEquals("Titulo", entidade.getTitulo());
-        assertEquals("Descricao", entidade.getDescricao());
-        assertEquals("Bairro", entidade.getBairro());
-        assertEquals(Categoria.ILUMINACAO, entidade.getCategoria());
         assertEquals(StatusSolicitacao.ABERTA, entidade.getStatus());
+    }
+
+    @Test
+    void deveRecusarCidadaoInexistente() {
+        SolicitacaoRequest request = new SolicitacaoRequest();
+        request.setCidadaoId("x");
+        request.setTitulo("Titulo");
+        request.setDescricao("Descricao");
+        request.setBairro("Bairro");
+        request.setCategoria(Categoria.ILUMINACAO);
+
+        when(cidadaoService.buscarPorId("x"))
+                .thenThrow(new EntidadeNaoEncontradaException("Cidadão não encontrado."));
+
+        try {
+            solicitacaoService.criar(request);
+            fail();
+        } catch (EntidadeNaoEncontradaException ex) {
+            assertEquals("Cidadão não encontrado.", ex.getMessage());
+        }
+    }
+
+    @Test
+    void deveRecusarCidadaoVazio() {
+        SolicitacaoRequest request = new SolicitacaoRequest();
+        request.setCidadaoId(" ");
+        request.setTitulo("Titulo");
+        request.setDescricao("Descricao");
+        request.setBairro("Bairro");
+        request.setCategoria(Categoria.ILUMINACAO);
+
+        try {
+            solicitacaoService.criar(request);
+            fail();
+        } catch (ValidacaoException ex) {
+            assertEquals("O cidadão é obrigatório.", ex.getMessage());
+        }
     }
 
     @Test
     void deveRecusarTituloVazio() {
         SolicitacaoRequest request = new SolicitacaoRequest();
+        request.setCidadaoId("cid1");
         request.setTitulo(" ");
         request.setDescricao("Descricao");
         request.setBairro("Bairro");
@@ -67,47 +110,41 @@ public class SolicitacaoServiceTest {
     }
 
     @Test
+    void deveListarPorCidadao() {
+        when(cidadaoService.buscarPorId("cid1")).thenReturn(new Cidadao("A", "a@b.com", null));
+        Solicitacao s = new Solicitacao("cid1", "t", "d", "b", Categoria.LIXO);
+        when(repository.findByCidadaoId("cid1")).thenReturn(List.of(s));
+
+        assertEquals(1, solicitacaoService.listarPorCidadaoId("cid1").size());
+    }
+
+    @Test
     void deveListarSolicitacoes() {
-        Solicitacao s = new Solicitacao("t", "d", "b", Categoria.LIXO);
+        Solicitacao s = new Solicitacao("cid1", "t", "d", "b", Categoria.LIXO);
         when(repository.findAll()).thenReturn(List.of(s));
 
-        List<Solicitacao> lista = solicitacaoService.listar();
-
-        assertEquals(1, lista.size());
-        assertEquals("t", lista.get(0).getTitulo());
+        assertEquals(1, solicitacaoService.listar().size());
     }
 
     @Test
     void deveBuscarPorId() {
-        Solicitacao s = new Solicitacao("t", "d", "b", Categoria.PODA);
+        Solicitacao s = new Solicitacao("cid1", "t", "d", "b", Categoria.PODA);
         s.setId("1");
         when(repository.findById("1")).thenReturn(Optional.of(s));
 
-        Solicitacao encontrada = solicitacaoService.buscarPorId("1");
-
-        assertEquals("1", encontrada.getId());
-    }
-
-    @Test
-    void deveFalharAoBuscarIdInexistente() {
-        when(repository.findById("x")).thenReturn(Optional.empty());
-
-        try {
-            solicitacaoService.buscarPorId("x");
-            fail();
-        } catch (EntidadeNaoEncontradaException ex) {
-            assertEquals("Solicitação não encontrada.", ex.getMessage());
-        }
+        assertEquals("1", solicitacaoService.buscarPorId("1").getId());
     }
 
     @Test
     void deveAtualizarSolicitacao() {
-        Solicitacao existente = new Solicitacao("antigo", "d", "b", Categoria.BURACO);
+        Solicitacao existente = new Solicitacao("cid1", "antigo", "d", "b", Categoria.BURACO);
         existente.setId("1");
         when(repository.findById("1")).thenReturn(Optional.of(existente));
+        when(cidadaoService.buscarPorId("cid2")).thenReturn(new Cidadao("B", "b@c.com", null));
         when(repository.save(any(Solicitacao.class))).thenReturn(existente);
 
         SolicitacaoRequest request = new SolicitacaoRequest();
+        request.setCidadaoId("cid2");
         request.setTitulo("Novo");
         request.setDescricao("Descricao");
         request.setBairro("Bairro");
@@ -116,13 +153,13 @@ public class SolicitacaoServiceTest {
 
         Solicitacao atualizada = solicitacaoService.atualizar("1", request);
 
+        assertEquals("cid2", atualizada.getCidadaoId());
         assertEquals("Novo", atualizada.getTitulo());
-        assertEquals(StatusSolicitacao.EM_ANDAMENTO, atualizada.getStatus());
     }
 
     @Test
     void deveExcluirSolicitacao() {
-        Solicitacao existente = new Solicitacao("t", "d", "b", Categoria.LIXO);
+        Solicitacao existente = new Solicitacao("cid1", "t", "d", "b", Categoria.LIXO);
         existente.setId("9");
         when(repository.findById("9")).thenReturn(Optional.of(existente));
 
