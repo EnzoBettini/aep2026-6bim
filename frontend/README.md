@@ -19,7 +19,7 @@ API: `VITE_API_URL` (padrão `http://localhost:8080/api`) — ver `src/api/clien
 | Rota | Conteúdo |
 |------|----------|
 | `/` | ODS 11 e visão do projeto |
-| `/cidadaos` | Seção cidadãos (scaffold; dados na #24) |
+| `/cidadaos` | Cadastro e listagem de cidadãos (#24) |
 | `/solicitacoes` | Seção solicitações + atalho ao detalhe |
 | `/solicitacoes/:id` | Detalhe, status e histórico (#26) |
 
