@@ -172,4 +172,48 @@ public class SolicitacaoServiceTest {
 
         verify(repository).delete(existente);
     }
+
+    @Test
+    void deveMudarStatusComHistorico() {
+        Solicitacao existente = new Solicitacao("cid1", "t", "d", "b", Categoria.LIXO);
+        existente.setId("1");
+        when(repository.findById("1")).thenReturn(Optional.of(existente));
+        when(repository.save(any(Solicitacao.class))).thenAnswer(inv -> inv.getArgument(0));
+
+        MudarStatusRequest request = new MudarStatusRequest();
+        request.setStatus(StatusSolicitacao.EM_ANDAMENTO);
+        request.setObservacao("Equipe enviada");
+
+        Solicitacao atualizada = solicitacaoService.mudarStatus("1", request);
+
+        assertEquals(StatusSolicitacao.EM_ANDAMENTO, atualizada.getStatus());
+        assertEquals(2, atualizada.getHistoricoStatus().size());
+    }
+
+    @Test
+    void deveRecusarReabrirResolvida() {
+        Solicitacao existente = new Solicitacao("cid1", "t", "d", "b", Categoria.LIXO);
+        existente.setId("1");
+        existente.mudarStatus(StatusSolicitacao.RESOLVIDA, "Concluída");
+        when(repository.findById("1")).thenReturn(Optional.of(existente));
+
+        MudarStatusRequest request = new MudarStatusRequest();
+        request.setStatus(StatusSolicitacao.ABERTA);
+
+        try {
+            solicitacaoService.mudarStatus("1", request);
+            fail();
+        } catch (ValidacaoException ex) {
+            assertEquals("Não é permitido reabrir uma solicitação resolvida.", ex.getMessage());
+        }
+    }
+
+    @Test
+    void deveListarHistorico() {
+        Solicitacao existente = new Solicitacao("cid1", "t", "d", "b", Categoria.LIXO);
+        existente.setId("1");
+        when(repository.findById("1")).thenReturn(Optional.of(existente));
+
+        assertEquals(1, solicitacaoService.listarHistorico("1").size());
+    }
 }
