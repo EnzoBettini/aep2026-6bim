@@ -1,5 +1,6 @@
 package org.boligon.solicitacao;
 
+import org.boligon.cidadao.CidadaoService;
 import org.boligon.exception.EntidadeNaoEncontradaException;
 import org.boligon.exception.ValidacaoException;
 import org.springframework.stereotype.Service;
@@ -10,14 +11,19 @@ import java.util.List;
 public class SolicitacaoService {
 
     private final SolicitacaoRepository solicitacaoRepository;
+    private final CidadaoService cidadaoService;
 
-    public SolicitacaoService(SolicitacaoRepository solicitacaoRepository) {
+    public SolicitacaoService(SolicitacaoRepository solicitacaoRepository, CidadaoService cidadaoService) {
         this.solicitacaoRepository = solicitacaoRepository;
+        this.cidadaoService = cidadaoService;
     }
 
     public Solicitacao criar(SolicitacaoRequest request) {
         validarCampos(request);
+        String cidadaoId = request.getCidadaoId().trim();
+        cidadaoService.buscarPorId(cidadaoId);
         Solicitacao solicitacao = new Solicitacao(
+                cidadaoId,
                 request.getTitulo().trim(),
                 request.getDescricao().trim(),
                 request.getBairro().trim(),
@@ -41,8 +47,11 @@ public class SolicitacaoService {
             throw new ValidacaoException("O status é obrigatório.");
         }
 
+        String cidadaoId = request.getCidadaoId().trim();
+        cidadaoService.buscarPorId(cidadaoId);
         Solicitacao solicitacao = buscarPorId(id);
         solicitacao.atualizar(
+                cidadaoId,
                 request.getTitulo().trim(),
                 request.getDescricao().trim(),
                 request.getBairro().trim(),
@@ -50,6 +59,11 @@ public class SolicitacaoService {
                 request.getStatus()
         );
         return solicitacaoRepository.save(solicitacao);
+    }
+
+    public List<Solicitacao> listarPorCidadaoId(String cidadaoId) {
+        cidadaoService.buscarPorId(cidadaoId);
+        return solicitacaoRepository.findByCidadaoId(cidadaoId);
     }
 
     public void excluir(String id) {
@@ -72,6 +86,9 @@ public class SolicitacaoService {
         }
         if (request.getCategoria() == null) {
             throw new ValidacaoException("A categoria é obrigatória.");
+        }
+        if (estaVazio(request.getCidadaoId())) {
+            throw new ValidacaoException("O cidadão é obrigatório.");
         }
     }
 

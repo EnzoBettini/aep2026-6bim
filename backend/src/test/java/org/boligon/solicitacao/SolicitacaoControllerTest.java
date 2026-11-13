@@ -30,7 +30,7 @@ public class SolicitacaoControllerTest {
         SolicitacaoRequest request = new SolicitacaoRequest();
         request.setTitulo("Titulo");
 
-        Solicitacao criada = new Solicitacao("Titulo", "d", "b", Categoria.LIXO);
+        Solicitacao criada = new Solicitacao("cid1", "Titulo", "d", "b", Categoria.LIXO);
         when(solicitacaoService.criar(request)).thenReturn(criada);
 
         Solicitacao resultado = controller.criar(request);
@@ -46,7 +46,7 @@ public class SolicitacaoControllerTest {
 
     @Test
     void deveBuscar() {
-        Solicitacao s = new Solicitacao("t", "d", "b", Categoria.PODA);
+        Solicitacao s = new Solicitacao("cid1", "t", "d", "b", Categoria.PODA);
         s.setId("1");
         when(solicitacaoService.buscarPorId("1")).thenReturn(s);
 
@@ -58,7 +58,7 @@ public class SolicitacaoControllerTest {
         SolicitacaoRequest request = new SolicitacaoRequest();
         request.setTitulo("Novo");
 
-        Solicitacao s = new Solicitacao("Novo", "d", "b", Categoria.BURACO);
+        Solicitacao s = new Solicitacao("cid1", "Novo", "d", "b", Categoria.BURACO);
         when(solicitacaoService.atualizar("1", request)).thenReturn(s);
 
         assertEquals("Novo", controller.atualizar("1", request).getTitulo());

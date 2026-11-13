@@ -2,11 +2,20 @@ package org.boligon.solicitacao;
 
 public class SolicitacaoRequest {
 
+    private String cidadaoId;
     private String titulo;
     private String descricao;
     private String bairro;
     private Categoria categoria;
     private StatusSolicitacao status;
+
+    public String getCidadaoId() {
+        return cidadaoId;
+    }
+
+    public void setCidadaoId(String cidadaoId) {
+        this.cidadaoId = cidadaoId;
+    }
 
     public String getTitulo() {
         return titulo;

@@ -1,5 +1,7 @@
 package org.boligon.cidadao;
 
+import org.boligon.solicitacao.Solicitacao;
+import org.boligon.solicitacao.SolicitacaoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,11 +20,14 @@ class CidadaoControllerTest {
     @Mock
     CidadaoService cidadaoService;
 
+    @Mock
+    SolicitacaoService solicitacaoService;
+
     CidadaoController controller;
 
     @BeforeEach
     void setUp() {
-        controller = new CidadaoController(cidadaoService);
+        controller = new CidadaoController(cidadaoService, solicitacaoService);
     }
 
     @Test
@@ -64,5 +69,12 @@ class CidadaoControllerTest {
     void deveExcluir() {
         controller.excluir("1");
         verify(cidadaoService).excluir("1");
+    }
+
+    @Test
+    void deveListarSolicitacoesDoCidadao() {
+        when(solicitacaoService.listarPorCidadaoId("1")).thenReturn(List.of());
+
+        assertEquals(0, controller.listarSolicitacoes("1").size());
     }
 }

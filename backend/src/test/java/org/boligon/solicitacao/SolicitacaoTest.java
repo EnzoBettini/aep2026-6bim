@@ -18,7 +18,7 @@ public class SolicitacaoTest {
     @Test
     void deveCriarSolicitacaoAberta() {
         Solicitacao solicitacao = new Solicitacao(
-                "Titulo", "Descrição", "Bairro", Categoria.ILUMINACAO);
+                "cid1", "Titulo", "Descrição", "Bairro", Categoria.ILUMINACAO);
 
         assertEquals("Titulo", solicitacao.getTitulo());
         assertEquals("Descrição", solicitacao.getDescricao());
@@ -30,11 +30,12 @@ public class SolicitacaoTest {
     @Test
     void deveAtualizarSolicitacao() {
         Solicitacao solicitacao = new
-                Solicitacao("Titulo", "Descrição", "Bairro", Categoria.ILUMINACAO);
+                Solicitacao("cid1", "Titulo", "Descrição", "Bairro", Categoria.ILUMINACAO);
 
-        solicitacao.atualizar("Novo titulo", "Nova descrição",
+        solicitacao.atualizar("cid2", "Novo titulo", "Nova descrição",
                 "Novo bairro", Categoria.BURACO, StatusSolicitacao.RESOLVIDA);
 
+        assertEquals("cid2", solicitacao.getCidadaoId());
         assertEquals("Novo titulo", solicitacao.getTitulo());
         assertEquals("Nova descrição", solicitacao.getDescricao());
         assertEquals("Novo bairro", solicitacao.getBairro());

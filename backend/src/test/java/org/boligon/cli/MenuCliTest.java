@@ -30,18 +30,18 @@ public class MenuCliTest {
 
     @Test
     void deveCadastrarESair() {
-        Solicitacao criada = new Solicitacao("Titulo", "Desc", "Centro", Categoria.ILUMINACAO);
+        Solicitacao criada = new Solicitacao("cid1", "Titulo", "Desc", "Centro", Categoria.ILUMINACAO);
         criada.setId("abc");
         when(solicitacaoService.criar(any(SolicitacaoRequest.class))).thenReturn(criada);
 
-        menuComEntrada("1\nTitulo\nDesc\nCentro\n1\n0\n").run();
+        menuComEntrada("1\ncid1\nTitulo\nDesc\nCentro\n1\n0\n").run();
 
         verify(solicitacaoService).criar(any(SolicitacaoRequest.class));
     }
 
     @Test
     void deveListarESair() {
-        Solicitacao s = new Solicitacao("t", "d", "b", Categoria.LIXO);
+        Solicitacao s = new Solicitacao("cid1", "t", "d", "b", Categoria.LIXO);
         s.setId("1");
         when(solicitacaoService.listar()).thenReturn(List.of(s));
 

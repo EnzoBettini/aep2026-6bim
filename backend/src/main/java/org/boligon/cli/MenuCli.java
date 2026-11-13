@@ -120,6 +120,8 @@ public class MenuCli implements CommandLineRunner {
 
     private SolicitacaoRequest lerDadosBasicos() {
         SolicitacaoRequest request = new SolicitacaoRequest();
+        System.out.print("ID do cidadão: ");
+        request.setCidadaoId(scanner.nextLine());
         System.out.print("Título: ");
         request.setTitulo(scanner.nextLine());
         System.out.print("Descrição: ");
@@ -175,6 +177,7 @@ public class MenuCli implements CommandLineRunner {
     private void imprimir(Solicitacao solicitacao) {
         System.out.println(
                 "#" + solicitacao.getId()
+                        + " | cidadão " + solicitacao.getCidadaoId()
                         + " | " + solicitacao.getTitulo()
                         + " | " + solicitacao.getBairro()
                         + " | " + solicitacao.getCategoria()
