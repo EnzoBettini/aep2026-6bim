@@ -3,13 +3,13 @@
 Sistema para registro de problemas urbanos (iluminação, buracos, lixo, poda), alinhado à **ODS 11 — Cidades e Comunidades Sustentáveis**.  
 Projeto da AEP 2026.2 — Engenharia de Software 6S.
 
-## O que tem hoje (2ª entrega — backend)
+## O que tem hoje (2ª entrega)
 
 - **API REST** + **Swagger** (`/swagger-ui.html`)
 - **MongoDB**: coleções `cidadaos` e `solicitacoes` (histórico de status embarcado)
 - **CLI** no terminal (CRUD; sobe junto com o Spring Boot)
 - **Testes** + **JaCoCo** (gate ≥ 70% em `mvn verify`) e CI no GitHub Actions
-- **Frontend**: previsto nas issues do épico #22 (ainda não no repositório)
+- **Frontend** Vite + React em `frontend/` (detalhe da solicitação, status e histórico)
 
 Documentação completa: **[`docs/`](docs/README.md)** (arquitetura, API, desenvolvimento, entregas, cobertura).
 
@@ -27,6 +27,16 @@ mvn spring-boot:run
 
 Configuração: `backend/src/main/resources/application.properties`
 
+Frontend (outro terminal):
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+→ http://localhost:5173 (CORS liberado para `http://localhost:5173` no backend)
+
 ## Testes e cobertura
 
 ```bash
@@ -41,6 +51,7 @@ Relatório: `backend/target/site/jacoco/index.html` · Evidência: [`docs/cobert
 | Caminho | Descrição |
 |---------|-----------|
 | `backend/` | Código Spring Boot |
+| `frontend/` | Aplicação React |
 | `docs/` | Documentação versionada |
 | `.github/workflows/` | Pipeline de testes |
 
