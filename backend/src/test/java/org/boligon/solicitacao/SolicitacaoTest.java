@@ -25,6 +25,9 @@ public class SolicitacaoTest {
         assertEquals("Bairro", solicitacao.getBairro());
         assertEquals(Categoria.ILUMINACAO, solicitacao.getCategoria());
         assertEquals(StatusSolicitacao.ABERTA, solicitacao.getStatus());
+        assertEquals(1, solicitacao.getHistoricoStatus().size());
+        assertEquals(StatusSolicitacao.ABERTA, solicitacao.getHistoricoStatus().get(0).getStatus());
+        assertEquals("Solicitação criada", solicitacao.getHistoricoStatus().get(0).getObservacao());
     }
 
     @Test
@@ -41,6 +44,18 @@ public class SolicitacaoTest {
         assertEquals("Novo bairro", solicitacao.getBairro());
         assertEquals(Categoria.BURACO, solicitacao.getCategoria());
         assertEquals(StatusSolicitacao.RESOLVIDA, solicitacao.getStatus());
+        assertEquals(2, solicitacao.getHistoricoStatus().size());
+    }
+
+    @Test
+    void deveRegistrarHistoricoAoMudarStatus() {
+        Solicitacao solicitacao = new Solicitacao("cid1", "t", "d", "b", Categoria.ILUMINACAO);
+
+        solicitacao.mudarStatus(StatusSolicitacao.EM_ANDAMENTO, "Equipe enviada");
+
+        assertEquals(StatusSolicitacao.EM_ANDAMENTO, solicitacao.getStatus());
+        assertEquals(2, solicitacao.getHistoricoStatus().size());
+        assertEquals("Equipe enviada", solicitacao.getHistoricoStatus().get(1).getObservacao());
     }
 
 }
