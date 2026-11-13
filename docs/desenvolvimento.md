@@ -46,7 +46,7 @@ backend/src/test/java/org/boligon/
 └── cli/
 ```
 
-Prioridade: serviços e regras de negócio; controllers com MockMvc conforme issues.
+Prioridade: serviços e regras de negócio; controllers com `@WebMvcTest` + `MockMvc` (sucesso e 400/404).
 
 ## Onde documentar mudanças
 
