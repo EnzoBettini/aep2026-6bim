@@ -41,6 +41,6 @@ Relatório HTML: `backend/target/site/jacoco/index.html` — use a linha **Total
 
 ## Captura de tela
 
-A imagem `cobertura-instrucoes.png` deve ser tirada **depois** do `mvn verify`, na mesma versão do código (relatório antigo da entrega 1 mostrava **77%** total e pacotes com menos verde — isso confunde com o gate).
+Gerada a partir de `backend/target/site/jacoco/index.html` após o mesmo `mvn verify` desta medição.
 
-![Relatório JaCoCo](cobertura-instrucoes.png)
+![Relatório JaCoCo — Total 81% instruções](cobertura-instrucoes.png)
