@@ -9,7 +9,7 @@ Cidadãos registram problemas urbanos (iluminação, buracos, lixo e poda), alin
 - Backend Java (Spring Boot)
 - CLI no terminal com CRUD
 - MongoDB NoSQL local, uma coleção: `solicitacoes`
-- Sem frontend
+- Frontend Vite + React em `frontend/` (detalhe da solicitação com status/histórico)
 - Sem autenticação
 
 ## Como executar
@@ -45,6 +45,16 @@ A API continua disponível em paralelo:
 
 - API: http://localhost:8080/api/solicitacoes
 - Swagger: http://localhost:8080/swagger-ui.html
+
+Frontend (outro terminal):
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+→ http://localhost:5173 (requer CORS; origem `http://localhost:5173` já liberada no backend)
 
 ## Exemplo de documento
 
