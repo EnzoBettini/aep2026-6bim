@@ -18,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import org.mockito.ArgumentCaptor;
 
 @ExtendWith(MockitoExtension.class)
 public class SolicitacaoServiceTest {
@@ -53,6 +54,10 @@ public class SolicitacaoServiceTest {
         assertEquals("cid1", entidade.getCidadaoId());
         assertEquals("Titulo", entidade.getTitulo());
         assertEquals(StatusSolicitacao.ABERTA, entidade.getStatus());
+
+        ArgumentCaptor<Solicitacao> captor = ArgumentCaptor.forClass(Solicitacao.class);
+        verify(repository).save(captor.capture());
+        assertEquals(1, captor.getValue().getHistoricoStatus().size());
     }
 
     @Test
