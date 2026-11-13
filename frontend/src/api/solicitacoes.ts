@@ -3,7 +3,19 @@ import type {
   HistoricoStatus,
   MudarStatusPayload,
   Solicitacao,
+  SolicitacaoPayload,
 } from "../types/solicitacao";
+
+export function listarSolicitacoes(): Promise<Solicitacao[]> {
+  return apiFetch<Solicitacao[]>("/solicitacoes");
+}
+
+export function criarSolicitacao(payload: SolicitacaoPayload): Promise<Solicitacao> {
+  return apiFetch<Solicitacao>("/solicitacoes", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
 
 export function buscarSolicitacao(id: string): Promise<Solicitacao> {
   return apiFetch<Solicitacao>(`/solicitacoes/${encodeURIComponent(id)}`);

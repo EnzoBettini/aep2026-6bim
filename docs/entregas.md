@@ -27,7 +27,8 @@ Referência rápida do que já está no repositório e o que vem nas próximas i
 - [x] Testes MockMvc (#14)
 - [x] Scaffold frontend Vite + navegação (#23)
 - [x] Tela cidadãos cadastro/listagem (#24)
-- [ ] Frontend (#25, #27): solicitações por cidadão e testes Vitest
+- [x] Tela solicitações vinculadas a cidadão (#25)
+- [ ] Testes Vitest no frontend (#27)
 - [x] Detalhe solicitação status/histórico (#26)
 
 ### Critérios AEP (lembrete)
