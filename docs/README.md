@@ -5,6 +5,7 @@
 | Documento | Conteúdo |
 |-----------|----------|
 | [Arquitetura](arquitetura.md) | Camadas, pacotes Java, MongoDB, domínio |
+| [Modelo de dados](modelo-dados.md) | Coleções, campos, JSON de exemplo |
 | [API REST](api.md) | Endpoints (resumo; detalhes no Swagger) |
 | [Desenvolvimento](desenvolvimento.md) | Build, testes, CI, fluxo Git/issues |
 | [Entregas](entregas.md) | Escopo por entrega e o que falta |

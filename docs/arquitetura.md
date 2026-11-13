@@ -44,8 +44,11 @@ Banco padrão: `observacao` (`spring.data.mongodb.uri` em `application.propertie
 - `mvn spring-boot:run` sobe API **e** CLI no mesmo processo (o menu usa stdin).
 - Swagger UI: contrato OpenAPI gerado a partir dos controllers.
 
-## Próximas evoluções (documentar aqui quando entrarem)
+## Frontend
 
-- Pasta `frontend/` e consumo da API
-- Testes de API com MockMvc dedicados
-- Melhorias CLI / desacoplar CLI do boot em testes de integração
+SPA em `frontend/` consome a API REST (`VITE_API_URL`). Rotas: início, cidadãos, solicitações e detalhe com histórico.
+
+## Melhorias futuras (opcional)
+
+- Desacoplar CLI do `spring-boot:run` em ambientes de teste E2E
+- Autenticação / perfis (fora do escopo da 2ª entrega)

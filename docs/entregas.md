@@ -8,7 +8,7 @@ Referência rápida do que já está no repositório e o que vem nas próximas i
 - CLI, API REST, Swagger, MongoDB local
 - Testes iniciais + JaCoCo (relatório, sem gate estrito na época)
 
-## Entrega 2 (em andamento)
+## Entrega 2 (funcionalidades na `main` — tag `entrega-2` pendente, #20)
 
 ### Já no `main` / branches mergeadas
 
@@ -30,6 +30,8 @@ Referência rápida do que já está no repositório e o que vem nas próximas i
 - [x] Tela solicitações vinculadas a cidadão (#25)
 - [x] Testes Vitest no frontend (#27)
 - [x] Detalhe solicitação status/histórico (#26)
+
+- [x] README final + modelo MongoDB documentado (#17)
 
 ### Critérios AEP (lembrete)
 
