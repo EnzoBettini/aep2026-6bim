@@ -4,3 +4,6 @@ backend/data/
 *.iml
 .vscode/
 *.log
+
+# planejamento interno da equipe (não versionar)
+ORDEM-EQUIPE.md
