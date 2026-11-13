@@ -1,50 +1,31 @@
 # ObservaAção
 
-PoC da AEP 2026.2 — Engenharia de Software.
+Sistema para registro de problemas urbanos (iluminação, buracos, lixo, poda), alinhado à **ODS 11 — Cidades e Comunidades Sustentáveis**.  
+Projeto da AEP 2026.2 — Engenharia de Software 6S.
 
-Cidadãos registram problemas urbanos (iluminação, buracos, lixo e poda), alinhado à **ODS 11 — Cidades e Comunidades Sustentáveis**.
+## O que tem hoje (2ª entrega)
 
-## Escopo desta versão
+- **API REST** + **Swagger** (`/swagger-ui.html`)
+- **MongoDB**: coleções `cidadaos` e `solicitacoes` (histórico de status embarcado)
+- **CLI** no terminal (CRUD; sobe junto com o Spring Boot)
+- **Testes** + **JaCoCo** (gate ≥ 70% em `mvn verify`) e CI no GitHub Actions
+- **Frontend** Vite + React em `frontend/` (detalhe da solicitação, status e histórico)
 
-- Backend Java (Spring Boot)
-- CLI no terminal com CRUD
-- MongoDB NoSQL local, uma coleção: `solicitacoes`
-- Frontend Vite + React em `frontend/` (detalhe da solicitação com status/histórico)
-- Sem autenticação
+Documentação completa: **[`docs/`](docs/README.md)** (arquitetura, API, desenvolvimento, entregas, cobertura).
 
-## Como executar
+## Requisitos
 
-Requisitos: Java 17 e MongoDB Community Server na porta 27017.
-
-Instala o Mongo local: https://www.mongodb.com/try/download/community
-
-No Windows, no instalador, deixa marcado **Install MongoDB as a Service**. Ele sobe sozinho no boot, em `localhost:27017`.
-
-Opcional: MongoDB Compass, para ver a collection `solicitacoes`.
-
-A conexão fica em `application.properties`:
-
-`spring.data.mongodb.uri=mongodb://localhost:27017/observacao`
-
+Java **17**, Maven, MongoDB em `localhost:27017` (database `observacao`).
 
 ```bash
 cd backend
 mvn spring-boot:run
 ```
 
-O menu do CLI aparece no terminal:
+- API base: http://localhost:8080  
+- Swagger: http://localhost:8080/swagger-ui.html  
 
-1. Cadastrar solicitação
-2. Listar solicitações
-3. Buscar por ID
-4. Atualizar solicitação
-5. Excluir solicitação
-0. Sair
-
-A API continua disponível em paralelo:
-
-- API: http://localhost:8080/api/solicitacoes
-- Swagger: http://localhost:8080/swagger-ui.html
+Configuração: `backend/src/main/resources/application.properties`
 
 Frontend (outro terminal):
 
@@ -54,39 +35,24 @@ npm install
 npm run dev
 ```
 
-→ http://localhost:5173 (requer CORS; origem `http://localhost:5173` já liberada no backend)
-
-## Exemplo de documento
-
-```json
-{
-  "id": "68c1f2a8b4d91e3a7c0e9f12",
-  "titulo": "Poste apagado na Rua A",
-  "descricao": "Poste sem iluminação há três noites.",
-  "bairro": "Centro",
-  "categoria": "ILUMINACAO",
-  "status": "ABERTA"
-}
-```
-
-Categorias: `ILUMINACAO`, `BURACO`, `LIXO`, `PODA`  
-Status: `ABERTA`, `EM_ANDAMENTO`, `RESOLVIDA`
+→ http://localhost:5173 (CORS liberado para `http://localhost:5173` no backend)
 
 ## Testes e cobertura
 
-Os testes automatizados ficam em `backend/src/test/java`. A cobertura é medida com **JaCoCo**.
-
-Para rodar os testes e gerar o relatório:
-
 ```bash
 cd backend
-mvn test
+mvn verify
 ```
 
-Depois, abra o relatório HTML no navegador:
+Relatório: `backend/target/site/jacoco/index.html` · Evidência: [`docs/cobertura/`](docs/cobertura/)
 
-`backend/target/site/jacoco/index.html`
+## Repositório
 
-Evidência da medição nesta entrega:
+| Caminho | Descrição |
+|---------|-----------|
+| `backend/` | Código Spring Boot |
+| `frontend/` | Aplicação React |
+| `docs/` | Documentação versionada |
+| `.github/workflows/` | Pipeline de testes |
 
-![Relatório JaCoCo — cobertura de instruções 77%](docs/cobertura-jacoco.png)
+Fluxo de contribuição: uma issue → branch → PR → `main` (detalhes em [desenvolvimento](docs/desenvolvimento.md)).

@@ -9,3 +9,7 @@ frontend/dist/
 
 # planejamento interno da equipe (não versionar)
 ORDEM-EQUIPE.md
+
+# enunciado AEP (PDF local; manter fora do Git)
+docs/AEP_*.pdf
+docs/*.pdf
