@@ -64,6 +64,98 @@ public class SolicitacaoServiceTest {
     }
 
     @Test
+    void deveRecusarCidadaoInexistenteAoCriar() {
+        SolicitacaoRequest request = new SolicitacaoRequest();
+        request.setCidadaoId("x");
+        request.setTitulo("Titulo");
+        request.setDescricao("Descricao");
+        request.setBairro("Bairro");
+        request.setCategoria(Categoria.ILUMINACAO);
+
+        when(cidadaoService.buscarPorId("x"))
+                .thenThrow(new EntidadeNaoEncontradaException("Cidadão não encontrado."));
+
+        try {
+            solicitacaoService.criar(request);
+            fail();
+        } catch (EntidadeNaoEncontradaException ex) {
+            assertEquals("Cidadão não encontrado.", ex.getMessage());
+        }
+    }
+
+    @Test
+    void deveRecusarCidadaoVazio() {
+        SolicitacaoRequest request = new SolicitacaoRequest();
+        request.setCidadaoId(" ");
+        request.setTitulo("Titulo");
+        request.setDescricao("Descricao");
+        request.setBairro("Bairro");
+        request.setCategoria(Categoria.ILUMINACAO);
+
+        try {
+            solicitacaoService.criar(request);
+            fail();
+        } catch (ValidacaoException ex) {
+            assertEquals("O cidadão é obrigatório.", ex.getMessage());
+        }
+    }
+
+    @Test
+    void deveAtualizarSolicitacao() {
+        Solicitacao existente = new Solicitacao("cid1", "antigo", "d", "b", Categoria.BURACO);
+        existente.setId("1");
+        when(repository.findById("1")).thenReturn(Optional.of(existente));
+        when(cidadaoService.buscarPorId("cid2")).thenReturn(new Cidadao("B", "b@c.com", null));
+        when(repository.save(any(Solicitacao.class))).thenReturn(existente);
+
+        SolicitacaoRequest request = new SolicitacaoRequest();
+        request.setCidadaoId("cid2");
+        request.setTitulo("Novo");
+        request.setDescricao("Descricao");
+        request.setBairro("Bairro");
+        request.setCategoria(Categoria.ILUMINACAO);
+        request.setStatus(StatusSolicitacao.EM_ANDAMENTO);
+
+        assertEquals("cid2", solicitacaoService.atualizar("1", request).getCidadaoId());
+    }
+
+    @Test
+    void deveListarPorCidadao() {
+        when(cidadaoService.buscarPorId("cid1")).thenReturn(new Cidadao("A", "a@b.com", null));
+        when(repository.findByCidadaoId("cid1")).thenReturn(List.of());
+
+        assertEquals(0, solicitacaoService.listarPorCidadaoId("cid1").size());
+    }
+
+    @Test
+    void deveExcluirSolicitacao() {
+        Solicitacao existente = new Solicitacao("cid1", "t", "d", "b", Categoria.LIXO);
+        existente.setId("9");
+        when(repository.findById("9")).thenReturn(Optional.of(existente));
+
+        solicitacaoService.excluir("9");
+
+        verify(repository).delete(existente);
+    }
+
+    @Test
+    void deveRecusarMudancaParaMesmoStatus() {
+        Solicitacao existente = new Solicitacao("cid1", "t", "d", "b", Categoria.LIXO);
+        existente.setId("1");
+        when(repository.findById("1")).thenReturn(Optional.of(existente));
+
+        MudarStatusRequest request = new MudarStatusRequest();
+        request.setStatus(StatusSolicitacao.ABERTA);
+
+        try {
+            solicitacaoService.mudarStatus("1", request);
+            fail();
+        } catch (ValidacaoException ex) {
+            assertEquals("A solicitação já está com este status.", ex.getMessage());
+        }
+    }
+
+    @Test
     void deveMudarStatusComHistorico() {
         Solicitacao existente = new Solicitacao("cid1", "t", "d", "b", Categoria.LIXO);
         existente.setId("1");

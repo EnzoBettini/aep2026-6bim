@@ -51,6 +51,20 @@ class CidadaoServiceTest {
     }
 
     @Test
+    void deveRecusarNomeVazio() {
+        CidadaoRequest request = new CidadaoRequest();
+        request.setNome(" ");
+        request.setEmail("a@b.com");
+
+        try {
+            service.criar(request);
+            fail();
+        } catch (ValidacaoException ex) {
+            assertEquals("O nome é obrigatório.", ex.getMessage());
+        }
+    }
+
+    @Test
     void deveRecusarEmailDuplicado() {
         CidadaoRequest request = new CidadaoRequest();
         request.setNome("Maria");
@@ -84,6 +98,44 @@ class CidadaoServiceTest {
             fail();
         } catch (EntidadeNaoEncontradaException ex) {
             assertEquals("Cidadão não encontrado.", ex.getMessage());
+        }
+    }
+
+    @Test
+    void deveAtualizar() {
+        Cidadao existente = new Cidadao("Antigo", "antigo@email.com", "111");
+        existente.setId("1");
+        when(repository.findById("1")).thenReturn(Optional.of(existente));
+        when(repository.existsByEmailIgnoreCaseAndIdNot("novo@email.com", "1")).thenReturn(false);
+        when(repository.save(any(Cidadao.class))).thenReturn(existente);
+
+        CidadaoRequest request = new CidadaoRequest();
+        request.setNome("Novo");
+        request.setEmail("novo@email.com");
+        request.setTelefone("222");
+
+        Cidadao atualizado = service.atualizar("1", request);
+
+        assertEquals("Novo", atualizado.getNome());
+        assertEquals("novo@email.com", atualizado.getEmail());
+    }
+
+    @Test
+    void deveRecusarEmailDuplicadoNaAtualizacao() {
+        Cidadao existente = new Cidadao("A", "a@b.com", null);
+        existente.setId("1");
+        when(repository.findById("1")).thenReturn(Optional.of(existente));
+        when(repository.existsByEmailIgnoreCaseAndIdNot("outro@b.com", "1")).thenReturn(true);
+
+        CidadaoRequest request = new CidadaoRequest();
+        request.setNome("A");
+        request.setEmail("outro@b.com");
+
+        try {
+            service.atualizar("1", request);
+            fail();
+        } catch (ValidacaoException ex) {
+            assertEquals("Já existe um cidadão com este e-mail.", ex.getMessage());
         }
     }
 
