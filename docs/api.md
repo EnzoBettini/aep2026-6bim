@@ -2,7 +2,9 @@
 
 Base URL (local): `http://localhost:8080`
 
-Contrato interativo: **Swagger UI** em `/swagger-ui.html` (OpenAPI 3).
+Contrato interativo: **Swagger UI** em `/swagger-ui.html` (OpenAPI 3, springdoc).
+
+Anotações `@Operation` nos controllers e `@Schema` nos DTOs de request; título da API em `OpenApiConfig`.
 
 ## Cidadãos — `/api/cidadaos`
 

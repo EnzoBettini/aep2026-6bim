@@ -19,11 +19,11 @@ Referência rápida do que já está no repositório e o que vem nas próximas i
 - [x] Refatoração DTOs e pacotes por contexto
 - [x] Testes de serviços ampliados
 
-### Em PR / fila (issues GitHub)
+### Fila (issues GitHub)
 
-- [ ] Gate JaCoCo 70% + GitHub Actions + evidência em `docs/cobertura/` (#15)
+- [x] Gate JaCoCo 70% + GitHub Actions + evidência em `docs/cobertura/` (#15)
 - [x] Ajustes CLI (#10)
-- [ ] Swagger (#11)
+- [x] Swagger (#11)
 - [ ] Testes MockMvc (#14)
 - [ ] Frontend (#22–#27): listagem, cadastro, detalhe/status/histórico, integração
 

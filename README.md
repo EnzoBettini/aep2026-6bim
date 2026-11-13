@@ -55,4 +55,4 @@ Relatório: `backend/target/site/jacoco/index.html` · Evidência: [`docs/cobert
 | `docs/` | Documentação versionada |
 | `.github/workflows/` | Pipeline de testes |
 
-Fluxo de contribuição: uma issue → branch → PR → `main` (detalhes em [desenvolvimento](docs/desenvolvimento.md)).
+Fluxo de contribuição: issue → commit na `main` com `Closes #N` → push (detalhes em [desenvolvimento](docs/desenvolvimento.md)).

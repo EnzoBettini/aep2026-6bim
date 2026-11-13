@@ -28,10 +28,12 @@ Workflow **Testes e cobertura** (`.github/workflows/testes.yml`):
 
 ## Fluxo de trabalho (equipe)
 
-1. Issue no GitHub com escopo claro
-2. Branch `issue-N-descricao` a partir da `main`
-3. Commits convencionais; corpo com `Closes #N` quando fechar a issue
-4. Pull request → review → merge na `main`
+1. Pegar uma issue no GitHub (escopo e ordem em `ORDEM-EQUIPE.md`, local)
+2. Trabalhar em cima da **`main`** atualizada (`git pull`)
+3. Commit convencional na `main`; **no corpo do commit**, `Closes #N` para fechar a issue automaticamente
+4. `git push origin main` — o CI roda no push
+
+Pull requests continuam opcionais (revisão em dupla), mas **não são obrigatórios** nesta fase do projeto.
 
 Planejamento interno (ordem de tarefas) fica em arquivo local **não versionado** (`ORDEM-EQUIPE.md`).
 
