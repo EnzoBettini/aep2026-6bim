@@ -22,7 +22,8 @@ Referência rápida do que já está no repositório e o que vem nas próximas i
 ### Em PR / fila (issues GitHub)
 
 - [ ] Gate JaCoCo 70% + GitHub Actions + evidência em `docs/cobertura/` (#15)
-- [ ] Ajustes CLI (#10), Swagger (#11)
+- [x] Ajustes CLI (#10)
+- [ ] Swagger (#11)
 - [ ] Testes MockMvc (#14)
 - [ ] Frontend (#22–#27): listagem, cadastro, detalhe/status/histórico, integração
 
