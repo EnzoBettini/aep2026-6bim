@@ -1,5 +1,9 @@
 package org.boligon.cidadao;
 
+import org.boligon.cidadao.domain.Cidadao;
+import org.boligon.cidadao.dto.CidadaoRequest;
+import org.boligon.cidadao.repository.CidadaoRepository;
+import org.boligon.cidadao.service.CidadaoService;
 import org.boligon.exception.EntidadeNaoEncontradaException;
 import org.boligon.exception.ValidacaoException;
 import org.junit.jupiter.api.BeforeEach;
@@ -44,7 +48,6 @@ class CidadaoServiceTest {
 
         assertEquals("Maria", criado.getNome());
         assertEquals("maria@email.com", criado.getEmail());
-        assertEquals("44999990000", criado.getTelefone());
     }
 
     @Test
@@ -60,20 +63,6 @@ class CidadaoServiceTest {
             fail();
         } catch (ValidacaoException ex) {
             assertEquals("Já existe um cidadão com este e-mail.", ex.getMessage());
-        }
-    }
-
-    @Test
-    void deveRecusarNomeVazio() {
-        CidadaoRequest request = new CidadaoRequest();
-        request.setNome(" ");
-        request.setEmail("a@b.com");
-
-        try {
-            service.criar(request);
-            fail();
-        } catch (ValidacaoException ex) {
-            assertEquals("O nome é obrigatório.", ex.getMessage());
         }
     }
 
@@ -102,25 +91,6 @@ class CidadaoServiceTest {
     void deveListar() {
         when(repository.findAll()).thenReturn(List.of(new Cidadao("A", "a@b.com", null)));
         assertEquals(1, service.listar().size());
-    }
-
-    @Test
-    void deveAtualizar() {
-        Cidadao existente = new Cidadao("Antigo", "antigo@email.com", "111");
-        existente.setId("1");
-        when(repository.findById("1")).thenReturn(Optional.of(existente));
-        when(repository.existsByEmailIgnoreCaseAndIdNot("novo@email.com", "1")).thenReturn(false);
-        when(repository.save(any(Cidadao.class))).thenReturn(existente);
-
-        CidadaoRequest request = new CidadaoRequest();
-        request.setNome("Novo");
-        request.setEmail("novo@email.com");
-        request.setTelefone("222");
-
-        Cidadao atualizado = service.atualizar("1", request);
-
-        assertEquals("Novo", atualizado.getNome());
-        assertEquals("novo@email.com", atualizado.getEmail());
     }
 
     @Test

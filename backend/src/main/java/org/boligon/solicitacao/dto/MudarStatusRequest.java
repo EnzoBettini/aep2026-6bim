@@ -1,4 +1,6 @@
-package org.boligon.solicitacao;
+package org.boligon.solicitacao.dto;
+
+import org.boligon.solicitacao.domain.StatusSolicitacao;
 
 public class MudarStatusRequest {
 

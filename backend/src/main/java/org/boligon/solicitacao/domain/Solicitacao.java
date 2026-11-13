@@ -1,4 +1,4 @@
-package org.boligon.solicitacao;
+package org.boligon.solicitacao.domain;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

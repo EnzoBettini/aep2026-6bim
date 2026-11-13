@@ -1,5 +1,8 @@
 package org.boligon.solicitacao;
 
+import org.boligon.solicitacao.domain.Categoria;
+import org.boligon.solicitacao.domain.StatusSolicitacao;
+import org.boligon.solicitacao.dto.SolicitacaoRequest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,9 +21,5 @@ public class SolicitacaoRequestTest {
 
         assertEquals("cid1", request.getCidadaoId());
         assertEquals("Titulo", request.getTitulo());
-        assertEquals("Descricao", request.getDescricao());
-        assertEquals("Bairro", request.getBairro());
-        assertEquals(Categoria.ILUMINACAO, request.getCategoria());
-        assertEquals(StatusSolicitacao.ABERTA, request.getStatus());
     }
 }

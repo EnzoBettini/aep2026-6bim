@@ -1,5 +1,6 @@
-package org.boligon.cidadao;
+package org.boligon.cidadao.repository;
 
+import org.boligon.cidadao.domain.Cidadao;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface CidadaoRepository extends MongoRepository<Cidadao, String> {

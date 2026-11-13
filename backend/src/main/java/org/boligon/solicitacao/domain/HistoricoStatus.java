@@ -1,4 +1,4 @@
-package org.boligon.solicitacao;
+package org.boligon.solicitacao.domain;
 
 import java.time.Instant;
 

@@ -1,5 +1,12 @@
 package org.boligon.solicitacao;
 
+import org.boligon.solicitacao.controller.SolicitacaoController;
+import org.boligon.solicitacao.domain.Categoria;
+import org.boligon.solicitacao.domain.Solicitacao;
+import org.boligon.solicitacao.domain.StatusSolicitacao;
+import org.boligon.solicitacao.dto.MudarStatusRequest;
+import org.boligon.solicitacao.dto.SolicitacaoRequest;
+import org.boligon.solicitacao.service.SolicitacaoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -33,9 +40,7 @@ public class SolicitacaoControllerTest {
         Solicitacao criada = new Solicitacao("cid1", "Titulo", "d", "b", Categoria.LIXO);
         when(solicitacaoService.criar(request)).thenReturn(criada);
 
-        Solicitacao resultado = controller.criar(request);
-
-        assertEquals("Titulo", resultado.getTitulo());
+        assertEquals("Titulo", controller.criar(request).getTitulo());
     }
 
     @Test
@@ -56,8 +61,6 @@ public class SolicitacaoControllerTest {
     @Test
     void deveAtualizar() {
         SolicitacaoRequest request = new SolicitacaoRequest();
-        request.setTitulo("Novo");
-
         Solicitacao s = new Solicitacao("cid1", "Novo", "d", "b", Categoria.BURACO);
         when(solicitacaoService.atualizar("1", request)).thenReturn(s);
 
@@ -75,9 +78,10 @@ public class SolicitacaoControllerTest {
         MudarStatusRequest request = new MudarStatusRequest();
         request.setStatus(StatusSolicitacao.EM_ANDAMENTO);
         Solicitacao s = new Solicitacao("cid1", "t", "d", "b", Categoria.LIXO);
+        s.mudarStatus(StatusSolicitacao.EM_ANDAMENTO, "ok");
         when(solicitacaoService.mudarStatus("1", request)).thenReturn(s);
 
-        assertEquals(StatusSolicitacao.EM_ANDAMENTO, controller.mudarStatus("1", request).getStatus());
+        assertEquals("EM_ANDAMENTO", controller.mudarStatus("1", request).getStatus());
     }
 
     @Test

@@ -1,4 +1,4 @@
-package org.boligon.cidadao;
+package org.boligon.cidadao.dto;
 
 public class CidadaoRequest {
 

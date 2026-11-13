@@ -1,5 +1,8 @@
-package org.boligon.cidadao;
+package org.boligon.cidadao.service;
 
+import org.boligon.cidadao.domain.Cidadao;
+import org.boligon.cidadao.dto.CidadaoRequest;
+import org.boligon.cidadao.repository.CidadaoRepository;
 import org.boligon.exception.EntidadeNaoEncontradaException;
 import org.boligon.exception.ValidacaoException;
 import org.springframework.stereotype.Service;

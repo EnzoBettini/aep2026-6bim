@@ -1,5 +1,6 @@
-package org.boligon.solicitacao;
+package org.boligon.solicitacao.repository;
 
+import org.boligon.solicitacao.domain.Solicitacao;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
