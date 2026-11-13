@@ -37,6 +37,8 @@ npm run dev
 
 → http://localhost:5173 (CORS liberado para `http://localhost:5173` no backend)
 
+Testes do front (API mockada, sem backend): `cd frontend && npm test`
+
 ## Testes e cobertura
 
 ```bash

@@ -8,6 +8,7 @@ Vite + React + TypeScript + Tailwind (porta **5173**).
 npm install
 cp .env.example .env   # opcional
 npm run dev
+npm test             # Vitest + Testing Library (sem backend)
 ```
 
 → http://localhost:5173
