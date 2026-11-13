@@ -66,17 +66,15 @@ Status: `ABERTA`, `EM_ANDAMENTO`, `RESOLVIDA`
 
 Os testes automatizados ficam em `backend/src/test/java`. A cobertura é medida com **JaCoCo**.
 
-Para rodar os testes e gerar o relatório:
+Para rodar os testes, gerar o relatório e **validar cobertura mínima de 70%**:
 
 ```bash
 cd backend
-mvn test
+mvn verify
 ```
 
-Depois, abra o relatório HTML no navegador:
+Relatório HTML: `backend/target/site/jacoco/index.html`
 
-`backend/target/site/jacoco/index.html`
+Evidência versionada: pasta [`docs/cobertura/`](docs/cobertura/) (métricas e captura do JaCoCo).
 
-Evidência da medição nesta entrega:
-
-![Relatório JaCoCo — cobertura de instruções 77%](docs/cobertura-jacoco.png)
+CI: workflow `.github/workflows/testes.yml` (GitHub Actions).
