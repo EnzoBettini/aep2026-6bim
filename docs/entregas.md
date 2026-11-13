@@ -25,7 +25,9 @@ Referência rápida do que já está no repositório e o que vem nas próximas i
 - [x] Ajustes CLI (#10)
 - [x] Swagger (#11)
 - [x] Testes MockMvc (#14)
-- [ ] Frontend (#22–#27): listagem, cadastro, detalhe/status/histórico, integração
+- [x] Scaffold frontend Vite + navegação (#23)
+- [ ] Frontend (#24–#25, #27): telas de dados e testes Vitest
+- [x] Detalhe solicitação status/histórico (#26)
 
 ### Critérios AEP (lembrete)
 

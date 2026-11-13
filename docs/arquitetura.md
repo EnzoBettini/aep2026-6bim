@@ -2,7 +2,7 @@
 
 ## Visão geral
 
-Monorepo com foco no **backend** (2ª entrega). Frontend virá em pasta própria (issues do épico #22).
+Monorepo com **backend** e **`frontend/`** (Vite + React; rotas Início / Cidadãos / Solicitações).
 
 ```
 aep2026-6bim/

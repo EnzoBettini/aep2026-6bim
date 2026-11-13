@@ -1,21 +1,26 @@
 # Frontend ObservaAção
 
-Vite + React + TypeScript + Tailwind.
+Vite + React + TypeScript + Tailwind (porta **5173**).
 
 ## Desenvolvimento
 
-Backend na porta `8080` e MongoDB ativos:
-
 ```bash
 npm install
+cp .env.example .env   # opcional
 npm run dev
 ```
 
-Abre em http://localhost:5173
+→ http://localhost:5173
 
-API base: `VITE_API_URL` (padrão `http://localhost:8080/api`).
+API: `VITE_API_URL` (padrão `http://localhost:8080/api`) — ver `src/api/client.ts`.
 
-## Telas
+## Rotas
 
-- `/` — início (ODS 11) e atalho para abrir solicitação por ID
-- `/solicitacoes/:id` — detalhe, mudança de status e histórico (#26)
+| Rota | Conteúdo |
+|------|----------|
+| `/` | ODS 11 e visão do projeto |
+| `/cidadaos` | Seção cidadãos (scaffold; dados na #24) |
+| `/solicitacoes` | Seção solicitações + atalho ao detalhe |
+| `/solicitacoes/:id` | Detalhe, status e histórico (#26) |
+
+Navegação: header **Início · Cidadãos · Solicitações**.
