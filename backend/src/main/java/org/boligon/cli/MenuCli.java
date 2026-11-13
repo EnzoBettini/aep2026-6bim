@@ -1,13 +1,13 @@
 package org.boligon.cli;
 
-import org.boligon.solicitacao.Categoria;
-import org.boligon.solicitacao.Solicitacao;
-import org.boligon.solicitacao.SolicitacaoRequest;
-import org.boligon.solicitacao.SolicitacaoService;
-import org.boligon.solicitacao.StatusSolicitacao;
+import org.boligon.solicitacao.domain.Categoria;
+import org.boligon.solicitacao.domain.Solicitacao;
+import org.boligon.solicitacao.domain.StatusSolicitacao;
+import org.boligon.solicitacao.dto.SolicitacaoRequest;
+import org.boligon.solicitacao.service.SolicitacaoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Scanner;

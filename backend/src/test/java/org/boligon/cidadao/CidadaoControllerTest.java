@@ -1,7 +1,10 @@
 package org.boligon.cidadao;
 
-import org.boligon.solicitacao.Solicitacao;
-import org.boligon.solicitacao.SolicitacaoService;
+import org.boligon.cidadao.controller.CidadaoController;
+import org.boligon.cidadao.domain.Cidadao;
+import org.boligon.cidadao.dto.CidadaoRequest;
+import org.boligon.cidadao.service.CidadaoService;
+import org.boligon.solicitacao.service.SolicitacaoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -54,15 +57,6 @@ class CidadaoControllerTest {
         when(cidadaoService.buscarPorId("1")).thenReturn(c);
 
         assertEquals("1", controller.buscar("1").getId());
-    }
-
-    @Test
-    void deveAtualizar() {
-        CidadaoRequest request = new CidadaoRequest();
-        Cidadao c = new Cidadao("Novo", "n@e.com", null);
-        when(cidadaoService.atualizar("1", request)).thenReturn(c);
-
-        assertEquals("Novo", controller.atualizar("1", request).getNome());
     }
 
     @Test

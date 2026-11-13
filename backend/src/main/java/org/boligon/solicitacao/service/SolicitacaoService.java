@@ -1,8 +1,14 @@
-package org.boligon.solicitacao;
+package org.boligon.solicitacao.service;
 
-import org.boligon.cidadao.CidadaoService;
+import org.boligon.cidadao.service.CidadaoService;
 import org.boligon.exception.EntidadeNaoEncontradaException;
 import org.boligon.exception.ValidacaoException;
+import org.boligon.solicitacao.domain.HistoricoStatus;
+import org.boligon.solicitacao.domain.Solicitacao;
+import org.boligon.solicitacao.domain.StatusSolicitacao;
+import org.boligon.solicitacao.dto.MudarStatusRequest;
+import org.boligon.solicitacao.dto.SolicitacaoRequest;
+import org.boligon.solicitacao.repository.SolicitacaoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

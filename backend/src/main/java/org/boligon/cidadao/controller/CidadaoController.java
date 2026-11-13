@@ -1,6 +1,11 @@
-package org.boligon.cidadao;
+package org.boligon.cidadao.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.boligon.cidadao.dto.CidadaoRequest;
+import org.boligon.cidadao.dto.CidadaoResponse;
+import org.boligon.cidadao.service.CidadaoService;
+import org.boligon.solicitacao.dto.SolicitacaoResponse;
+import org.boligon.solicitacao.service.SolicitacaoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.boligon.solicitacao.Solicitacao;
-import org.boligon.solicitacao.SolicitacaoService;
 
 import java.util.List;
 
@@ -31,28 +34,28 @@ public class CidadaoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Cidadao criar(@RequestBody CidadaoRequest request) {
-        return cidadaoService.criar(request);
+    public CidadaoResponse criar(@RequestBody CidadaoRequest request) {
+        return CidadaoResponse.de(cidadaoService.criar(request));
     }
 
     @GetMapping
-    public List<Cidadao> listar() {
-        return cidadaoService.listar();
+    public List<CidadaoResponse> listar() {
+        return CidadaoResponse.deLista(cidadaoService.listar());
     }
 
     @GetMapping("/{id}")
-    public Cidadao buscar(@PathVariable String id) {
-        return cidadaoService.buscarPorId(id);
+    public CidadaoResponse buscar(@PathVariable String id) {
+        return CidadaoResponse.de(cidadaoService.buscarPorId(id));
     }
 
     @GetMapping("/{id}/solicitacoes")
-    public List<Solicitacao> listarSolicitacoes(@PathVariable String id) {
-        return solicitacaoService.listarPorCidadaoId(id);
+    public List<SolicitacaoResponse> listarSolicitacoes(@PathVariable String id) {
+        return SolicitacaoResponse.deLista(solicitacaoService.listarPorCidadaoId(id));
     }
 
     @PutMapping("/{id}")
-    public Cidadao atualizar(@PathVariable String id, @RequestBody CidadaoRequest request) {
-        return cidadaoService.atualizar(id, request);
+    public CidadaoResponse atualizar(@PathVariable String id, @RequestBody CidadaoRequest request) {
+        return CidadaoResponse.de(cidadaoService.atualizar(id, request));
     }
 
     @DeleteMapping("/{id}")
